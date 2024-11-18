@@ -16,7 +16,7 @@ function displayUsers() {
         <div class="space"><strong>Telefone:</strong> ${user.phone || 'N/A'}</div>
         <div class="space"><strong>Site:</strong> ${user.website || 'N/A'}</div>
         <button onclick="removeUser(${user.id})" class="remove-btn">
-            <iclass="bi bi-trash"></i>
+            <i class="bi bi-trash"></i>
         </button>`;
 
         userList.appendChild(listItem);
