@@ -23,11 +23,44 @@ function displayUsers() {
     });
 }
     
-function fetchUsers() {}
-    
-function addUser() {}
+function fetchUsers() {
+    const apiUrl = "https://jsonplaceholder.typicode.com/users";
 
-function removeUser() {}
+    fetch(apiUrl)
+    .then(response => response.json())
+    .then(users => {
+        users.forEach(user => {
+            pageUsers.push(new User(user.id, user.name, user.username, user.email, user.phone, user.website))
+        });
+        console.log(pageUsers);
+        displayUsers();
+    }).catch(error => console.log("Erro ao obter dados da API", error));
+}
+    
+function addUser() {
+    const addUserForm = document.getElementById("add-user-form");
+
+    const id = pageUsers[pageUsers.length - 1].id + 1;
+    const name = document.getElementById("name").value;
+    const username = document.getElementById("username").value;
+    const email = document.getElementById("email").value;
+    const phone = document.getElementById("phone").value;
+    const website = document.getElementById("website").value;
+
+    if(name.trim() != "") {
+        pageUsers.push(new User(id, name, username, email, phone, website));
+        addUserForm.reset();
+        displayUsers();
+    }
+}
+
+function removeUser(userId) {
+    console.log("Removendo usuário com ID: ", userId);
+    
+    const userIndexToRemove = pageUsers.findIndex((user) => user.id === userId);
+    pageUsers.splice(userIndexToRemove, 1);
+    displayUsers();
+}
 
 document.addEventListener("DOMContentLoaded", function() {
     //Cria lista de usuários a partir da chamada da API
